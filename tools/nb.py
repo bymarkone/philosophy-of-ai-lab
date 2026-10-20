@@ -1,0 +1,34 @@
+"""Tiny helper to write notebooks from Python: md(...) and code(...) cells."""
+
+from __future__ import annotations
+
+import nbformat
+from nbformat.v4 import new_code_cell, new_markdown_cell, new_notebook
+
+REPO = "https://github.com/bymarkone/seminar-laboratory"
+
+SETUP = f'''# Run this cell first. It fetches the lab's code from GitHub (a few seconds).
+import importlib.util, subprocess, sys
+if importlib.util.find_spec("seminarlab") is None:
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "git+{REPO}"], check=True)
+print("ready")'''
+
+
+def md(text):
+    return new_markdown_cell(text.strip("\n"))
+
+
+def code(text):
+    return new_code_cell(text.strip("\n"))
+
+
+def setup():
+    return code(SETUP)
+
+
+def write(cells, path):
+    nb = new_notebook(cells=cells)
+    nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}
+    nb.metadata["language_info"] = {"name": "python"}
+    nbformat.write(nb, path)
+    print("wrote", path)

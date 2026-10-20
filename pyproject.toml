@@ -1,0 +1,31 @@
+[project]
+name = "seminarlab"
+version = "0.1.0"
+description = "Laboratories for the Philosophy of Artificial Intelligence seminar (TUM, WS 2026/27)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "numpy>=1.26",
+  "matplotlib>=3.8",
+  "chess>=1.10",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "nbformat>=5.10",
+  "nbclient>=0.10",
+  "ipykernel>=6",
+  "jupyter>=1",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["seminarlab*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
