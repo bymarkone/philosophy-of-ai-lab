@@ -25,5 +25,5 @@
 
 ## Open questions
 
-- Which GitHub repository name? Assumed `bymarkone/seminar-laboratory`.
+- Which GitHub repository name? Was assumed `bymarkone/seminar-laboratory`; the user pushed to `bymarkone/philosophy-of-ai-lab` on 28.10.2026 and links were updated.
 - Lab 5 content.

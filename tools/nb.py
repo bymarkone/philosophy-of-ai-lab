@@ -5,7 +5,7 @@ from __future__ import annotations
 import nbformat
 from nbformat.v4 import new_code_cell, new_markdown_cell, new_notebook
 
-REPO = "https://github.com/bymarkone/seminar-laboratory"
+REPO = "https://github.com/bymarkone/philosophy-of-ai-lab"
 
 SETUP = f'''# Run this cell first. It fetches the lab's code from GitHub (a few seconds).
 import importlib.util, subprocess, sys
