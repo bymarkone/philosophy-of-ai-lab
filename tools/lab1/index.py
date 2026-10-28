@@ -1,4 +1,4 @@
-from tools.nb import md
+from tools.nb import colab, md
 
 TITLE = "Lab 1 — Search, symbols, machines"
 
@@ -15,13 +15,13 @@ This afternoon you run the programs that the papers you read today were written 
 
 | Part | Notebook | What you will see |
 |---|---|---|
-| A | How big is the game? | The tree of tic-tac-toe, drawn layer by layer. Then checkers. Then chess, which is bigger than the universe. |
-| B | One search, three games | One function, about thirty lines, plays all three games. You change its depth and its idea of "good". |
-| C | Recognising a letter, 1961 style | Three ways a program can tell an A from a B. Each breaks in its own way. |
-| D | Planning and the frame problem | A monkey, a box, some bananas. The planner finds the plan. Then you add one fact and watch the rules multiply. |
-| E | A Turing machine next to an automaton | Turing's own example machine from the paper, then a machine with a tape. The tape is the whole difference. |
+| A | [How big is the game?]({colab("labs/lab1/01-how-big-is-the-game.ipynb")}) | The tree of tic-tac-toe, drawn layer by layer. Then checkers. Then chess, which is bigger than the universe. |
+| B | [One search, three games]({colab("labs/lab1/02-one-search-three-games.ipynb")}) | One function, about thirty lines, plays all three games. You change its depth and its idea of "good". |
+| C | [Recognising a letter, 1961 style]({colab("labs/lab1/03-recognising-a-letter.ipynb")}) | Three ways a program can tell an A from a B. Each breaks in its own way. |
+| D | [Planning and the frame problem]({colab("labs/lab1/04-planning-and-the-frame-problem.ipynb")}) | A monkey, a box, some bananas. The planner finds the plan. Then you add one fact and watch the rules multiply. |
+| E | [A Turing machine next to an automaton]({colab("labs/lab1/05-turing-machine-and-automaton.ipynb")}) | Turing's own example machine from the paper, then a machine with a tape. The tape is the whole difference. |
 
-Parts A, B and E are the core. D and C are for when there is time. Do them in order if you can, but each one stands on its own.
+Click a part to open it in Colab. Parts A, B and E are the core. D and C are for when there is time. Do them in order if you can, but each one stands on its own.
 
 ## How to use these notebooks
 

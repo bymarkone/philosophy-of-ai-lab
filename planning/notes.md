@@ -27,3 +27,4 @@
 
 - Which GitHub repository name? Was assumed `bymarkone/seminar-laboratory`; the user pushed to `bymarkone/philosophy-of-ai-lab` on 28.10.2026 and links were updated.
 - Lab 5 content.
+- 28.10.2026: one entry link per lab. The index notebook links each part on Colab; students get only the index URL. Notebook cell ids are deterministic so rebuilds only diff edited cells.
