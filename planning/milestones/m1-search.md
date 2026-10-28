@@ -21,6 +21,7 @@ Why: the combinatorial explosion is the reason heuristics exist. Students should
 - S1.1.2 The same count on checkers and chess for the first plies.
   - [x] T1.1.2.1 Checkers rules with forced captures; perft matches the known sequence.
   - [x] T1.1.2.2 Chess per-ply counts via python-chess.
+  - [x] T1.1.2.3 Drawn boards for checkers and chess, and layer 1 drawn as boards.
 - S1.1.3 Log-scale chart: three games against the universe, ending on Minsky's sentence.
   - [x] T1.1.3.1 Chart and notebook prose.
 
@@ -30,6 +31,7 @@ Why: the algorithm is the same; only the size and the heuristic differ. Searle's
 - [x] T1.2.2 Common game interface so the one function plays all three.
 - [x] T1.2.3 Play cells: tic-tac-toe perfect, checkers depth 4, chess depth 3, with timings.
 - [x] T1.2.4 Exercises: change depth, change the evaluation.
+- [x] T1.2.5 Each game as a film strip with the last move marked, the evaluation plotted move by move, tree against alpha-beta per depth.
 
 ## E1.3 — Part C: Recognising a letter, 1961 style
 Why: shows why symbol systems found perception hard and sets up the perceptron.

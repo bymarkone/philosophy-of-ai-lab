@@ -124,13 +124,26 @@ counter = Counter()
 start = time.time()
 history = play_game(checkers, depth_for={MAX: 3, MIN: 2}, max_plies=150, counter=counter)
 final = history[-1]
-print(checkers.render(final))
-print()
 print("pieces left:", checkers.count_pieces(final))
 print("moves played:", len(history) - 1, "  boards looked at:", f"{counter.nodes:,}", f"  time: {time.time() - start:.1f} s")
 """),
 md("""
-White, who sees one move further, wins with pieces to spare. That is the whole business model of computer chess: see further than the other side.
+Here is the game, one board every six moves. The last move is marked on each board. A star is a king.
+"""),
+code("""
+from seminarlab.lab1.boards import draw_film
+from seminarlab.lab1.plots import plot_opinion, bar_pruning
+
+draw_film(history, every=6);
+"""),
+md("""
+And here is what the program thought after every move. This is the only thing it ever "sees" of the game: one number, white's pieces minus black's. Each step in the line is a capture.
+"""),
+code("""
+plot_opinion([checkers.evaluate(board) for board in history]);
+"""),
+md("""
+White, who sees one move further, wins with pieces to spare. The line stays near zero for thirty moves, then climbs. That is the whole business model of computer chess: see further than the other side.
 
 **Try this.** Swap them: `{MAX: 2, MIN: 3}`. Then make it even. Then try `{MAX: 8, MIN: 4}`, which takes a minute, and watch white win again.
 
@@ -145,11 +158,20 @@ code("""
 from seminarlab.lab1.chessgame import Chess
 
 chess_game = Chess()
+searched = []
 for depth in range(1, 6):
     counter = Counter()
     start = time.time()
     value, move = minimax(chess_game, chess_game.initial(), depth, counter)
+    searched.append(counter.nodes)
     print(f"depth {depth}: {counter.nodes:>9,} boards   {time.time() - start:6.1f} s   plays {move}")
+"""),
+md("""
+Put that next to the full tree from Part A. Grey is every board in the tree at that depth; blue is what alpha-beta actually looked at to find the same answer. The gap is the shortcut, and it grows with depth.
+"""),
+code("""
+in_the_tree = [20, 400, 8_902, 197_281, 4_865_609]      # counted in Part A
+bar_pruning(in_the_tree, searched);
 """),
 md("""
 **Try this.** Change `range(1, 6)` to `range(1, 7)`. Depth 6 takes around a minute. Depth 7 is a coffee break. Depth 10 is overnight. The strongest engines today look 20 or more moves ahead, and they do it with better shortcuts, not more patience.
@@ -163,9 +185,8 @@ code("""
 counter = Counter()
 start = time.time()
 history = play_game(chess_game, depth_for={MAX: 3, MIN: 3}, max_plies=12, counter=counter)
-print(chess_game.render(history[-1]))
-print()
 print(f"12 moves, {counter.nodes:,} boards, {time.time() - start:.1f} s")
+draw_film(history, every=2);
 """),
 md("""
 Not good chess. Three moves ahead and a count of the pieces gets you a program that does not hang its queen and not much more. But it is chess, and it is the same thirty lines that drew tic-tac-toe.
@@ -188,7 +209,7 @@ odd_values = {chess.PAWN: 1, chess.KNIGHT: 9, chess.BISHOP: 3, chess.ROOK: 5, ch
 odd_chess = Chess(piece_value=odd_values)         # change the numbers above
 
 history = play_game(odd_chess, depth_for={MAX: 3, MIN: 3}, max_plies=12, counter=Counter())
-print(odd_chess.render(history[-1]))
+draw_film(history, every=2);
 """),
 md("""
 ## What just happened

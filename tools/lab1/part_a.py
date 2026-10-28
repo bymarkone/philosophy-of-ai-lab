@@ -95,8 +95,16 @@ code("""
 from seminarlab.lab1.checkers import Checkers
 import time
 
+from seminarlab.lab1.boards import draw_board, draw_first_moves
+
 checkers = Checkers()
-print(checkers.render(checkers.initial()))
+draw_board(checkers.initial(), title="checkers, start");
+"""),
+md("""
+Layer 1, drawn the way we drew it for tic-tac-toe. White has seven ways to open. The moved piece is marked on each board.
+"""),
+code("""
+draw_first_moves(checkers);
 """),
 code("""
 start = time.time()
@@ -124,9 +132,16 @@ code("""
 import chess
 from seminarlab.lab1.chessgame import perft
 
-board = chess.Board()
-print(board)
-print()
+draw_board(chess.Board(), title="chess, start");
+"""),
+md("""
+Layer 1 again. Twenty boards this time, and this is the smallest layer the chess tree will ever have.
+"""),
+code("""
+from seminarlab.lab1.chessgame import Chess
+draw_first_moves(Chess());
+"""),
+code("""
 counts_chess = [1]
 for depth in range(1, 5):
     start = time.time()

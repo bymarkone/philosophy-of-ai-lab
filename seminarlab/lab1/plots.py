@@ -118,3 +118,49 @@ def show_letters(items, cols=6):
         ax.set_axis_on()
         show_letter(ax, letter, title)
     return fig
+
+
+def plot_opinion(values, title="What the program thinks, move by move", game_over=50):
+    """The evaluation of the position after every move, from white's side.
+    Above zero white is ahead. A step is a capture. Values beyond
+    `game_over` mark a finished game and are written, not plotted."""
+    fig, ax = plt.subplots(figsize=(9, 3))
+    ax.axhline(0, color="0.6", lw=0.8)
+    ax.step(range(len(values)), values, where="post", color="#1f618d", lw=2)
+    played = [v for v in values if abs(v) < game_over]
+    if played:
+        span = max(1.0, max(abs(v) for v in played))
+        ax.set_ylim(-span * 1.2, span * 1.2)
+    if abs(values[-1]) >= game_over:
+        who = "white wins" if values[-1] > 0 else "black wins"
+        ax.annotate(who, (len(values) - 1, 0), xytext=(-8, 0), textcoords="offset points",
+                    ha="right", va="center", fontsize=9, color="#1f618d")
+    ax.set_xlabel("moves played")
+    ax.set_ylabel("white's advantage")
+    ax.set_title(title, loc="left", fontsize=11)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    ax.grid(axis="y", color="0.9")
+    fig.tight_layout()
+    return fig
+
+
+def bar_pruning(tree_counts, searched_counts):
+    """Boards in the tree against boards alpha-beta actually looked at,
+    per depth, on a log scale."""
+    depths = np.arange(1, len(tree_counts) + 1)
+    fig, ax = plt.subplots(figsize=(9, 4))
+    ax.bar(depths - 0.2, tree_counts, 0.4, color="0.75", label="boards in the tree")
+    ax.bar(depths + 0.2, searched_counts, 0.4, color="#1f618d", label="boards alpha-beta looked at")
+    for d, n in zip(depths, searched_counts):
+        ax.text(d + 0.2, n, f"{n:,}", ha="center", va="bottom", fontsize=8)
+    for d, n in zip(depths, tree_counts):
+        ax.text(d - 0.2, n, f"{n:,}", ha="center", va="bottom", fontsize=8, color="0.4")
+    ax.set_yscale("log")
+    ax.set_xticks(depths, [f"depth {d}" for d in depths])
+    ax.set_ylabel("boards (log scale)")
+    ax.legend(frameon=False, loc="upper left")
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    fig.tight_layout()
+    return fig

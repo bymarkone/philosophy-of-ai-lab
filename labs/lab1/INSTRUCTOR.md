@@ -8,7 +8,7 @@ Session 2, 15:30 to 17:00. Students in pairs on their own laptops, you project t
 |---|---|---|
 | 15:30 | Index, 5 min | Open `00-index`. Everyone runs the setup cell in `01` while you talk. The pip install takes 10 to 30 seconds on Colab. |
 | 15:35 | A — How big is the game?, 20 min | Draw the tree, count, chart. Stop at Minsky's sentence. Do not let anyone wait for chess layer 5; say "try it over coffee". |
-| 15:55 | B — One search, three games, 25 min | Read the thirty lines aloud once. Let them play tic-tac-toe against it. Chess timing table is the showpiece. Finish on the Searle quote. |
+| 15:55 | B — One search, three games, 25 min | Read the thirty lines aloud once. Let them play tic-tac-toe against it. The checkers film and the opinion line under it make the point without words: one number is all it sees. Chess timing table and the grey-against-blue pruning chart are the showpiece. Finish on the Searle quote. |
 | 16:20 | E — Turing machine, 20 min | Turing's wheel first, typed in from the paper. Then `aabb`. Then "the table is data". |
 | 16:40 | D — Planning, if time, 15 min | Monkey plan, then the frame-axiom count, then one exception. |
 | | C — Letters | Only if the group is fast, or as homework. It stands on its own. |
