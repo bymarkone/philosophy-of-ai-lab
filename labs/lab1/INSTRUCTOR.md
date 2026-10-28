@@ -29,7 +29,9 @@ If a pair falls behind, tell them to skip to the next **Try this** box. Nothing 
 
 ## Where students get stuck
 
+- **"This notebook was not authored by Google."** Every student sees this on the first Run all. Click Run anyway. Say it before they start.
 - **Setup cell fails.** Usually Colab lost the kernel. Runtime → Restart session, run again. If GitHub is down, the whole lab is down; there is no offline fallback on Colab.
+- **`ModuleNotFoundError` for something inside `seminarlab`** after you have updated the repo. The runtime kept an older copy. The setup cell now reinstalls on every run on Colab; if it still happens, Runtime → Disconnect and delete runtime, then Run all.
 - **"name 'minimax' is not defined"** in Part B. They skipped the cell with the function. Run from the top.
 - **Chess at depth 6 or 7 seems frozen.** It is not. Runtime → Interrupt execution stops it. Colab is 2 to 3 times slower than a laptop.
 - **Tic-tac-toe "game not over yet".** One of their moves was in a cell already taken, so the loop stopped. Read the board, pick a free cell.

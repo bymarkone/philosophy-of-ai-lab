@@ -25,7 +25,8 @@ Click a part to open it in Colab. Parts A, B and E are the core. D and C are for
 
 ## How to use these notebooks
 
-- Each notebook starts with a cell that fetches the code. Run it first. It takes a few seconds.
+- Each notebook starts with a cell that fetches the code. Run it first. It takes 10 to 30 seconds.
+- The first time, Colab warns that the notebook was not authored by Google. Click **Run anyway**. The code is in the open on GitHub, linked at the top of the page.
 - Run cells from top to bottom. Click a cell and press **Shift+Enter**.
 - Boxes marked **Try this** ask you to change something and run again. That is the point of the lab. Nothing you do can break anything. If you get lost, reload the page and start again.
 - You do not have to understand every line. The prose tells you what matters. Read the code when you want to see that there is no trick.

@@ -15,10 +15,17 @@ def colab(path: str) -> str:
     """Colab URL that opens a notebook straight from the GitHub repo."""
     return f"{COLAB}/{path}"
 
-SETUP = f'''# Run this cell first. It fetches the lab's code from GitHub (a few seconds).
-import importlib.util, subprocess, sys
+SETUP = f'''# Run this cell first. It fetches the lab's code from GitHub (10 to 30 seconds).
+import importlib, importlib.util, os, subprocess, sys
+pip = [sys.executable, "-m", "pip", "install", "-q"]
+on_colab = "google.colab" in sys.modules or "COLAB_RELEASE_TAG" in os.environ
 if importlib.util.find_spec("seminarlab") is None:
-    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "git+{REPO}"], check=True)
+    subprocess.run(pip + ["git+{REPO}"], check=True)                                   # the code and what it needs
+elif on_colab:
+    subprocess.run(pip + ["--force-reinstall", "--no-deps", "git+{REPO}"], check=True)  # make sure it is today's version
+for name in [m for m in sys.modules if m.startswith("seminarlab")]:
+    del sys.modules[name]                                                              # forget any older copy
+importlib.invalidate_caches()
 print("ready")'''
 
 
