@@ -24,3 +24,14 @@ def test_frame_axioms_grow_with_fluents():
     before = len(P.frame_axioms(actions, fluents))
     after = len(P.frame_axioms(actions, fluents + ["light is on"]))
     assert after == before + len(actions)
+
+
+def test_search_layers_end_at_the_goal_and_match_the_plan():
+    start, goal, actions = P.monkey_world()
+    layers, edges = P.search_layers(start, goal, actions)
+    assert len(layers) == 5                                  # four actions deep
+    assert any(frozenset(goal) <= s for s in layers[-1])
+    assert all(len(layer) > 0 for layer in layers)
+    every = {s for layer in layers for s in layer}
+    assert len(every) == sum(len(layer) for layer in layers)  # no situation twice
+    assert len(edges) == len(every) - 1                       # a tree

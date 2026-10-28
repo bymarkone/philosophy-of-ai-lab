@@ -55,11 +55,30 @@ steps = P.plan(start, goal, actions)
 for i, step in enumerate(steps, 1):
     print(f"{i}. {step}")
 """),
+md("""
+Here is the plan drawn, one room per situation.
+"""),
+code("""
+from seminarlab.lab1.planplots import draw_plan, draw_search, draw_frame_grid
+
+draw_plan(start, by_name, steps);
+"""),
+md("""
+The pictures are for us. The planner never sees a room. What it sees is the list of facts under each picture, and nothing else.
+"""),
 code("""
 for situation, step in zip(P.replay(start, by_name, steps), ["(start)"] + steps):
     print(f"{step:<34} {sorted(situation)}")
 """),
 md("""
+And here is everything the planner looked at before it found the plan. Same picture as the tic-tac-toe tree in Part A: a layer for each action taken, a situation in place of a board. The path it chose is in black.
+"""),
+code("""
+draw_search(start, goal, actions);
+"""),
+md("""
+Thirteen situations in all. Tic-tac-toe had half a million. The monkey's world is small enough to draw in full, which is exactly why McCarthy and Hayes picked it.
+
 That is McCarthy and Hayes's plan, found by a program, from a description of the world. The program does not know what a monkey is or why it wants bananas. It found a path through a graph.
 
 **Try this.** Move the box: replace `"box at window"` with `"box at middle"` in the start and plan again. Then take the box away altogether and see what the planner says. Then put the monkey on the box at the start.
@@ -92,16 +111,23 @@ for sentence in axioms[:8]:
 print("   ...")
 """),
 md("""
-Over a hundred sentences saying that things stay where they are, for a world with one monkey, one box and three places.
+The same count as a picture. Actions down the side, facts along the top. A blue cell means the action changes that fact. Every grey cell is a sentence that says "this did not change".
+"""),
+code("""
+draw_frame_grid(actions, fluents);
+"""),
+md("""
+Over a hundred sentences saying that things stay where they are, for a world with one monkey, one box and three places. The grid is almost all grey. That is the frame problem in one picture: what an action does is a few cells, what it does not do is everything else.
 
 **Try this.** Add one fact about the world that has nothing to do with the monkey. The light is on, say. Count again.
 """),
 code("""
 more_fluents = fluents + ["the light is on"]          # add more here
 print(len(P.frame_axioms(actions, more_fluents)), "sentences now")
+draw_frame_grid(actions, more_fluents);
 """),
 md("""
-One new fact, and every action needs a new sentence saying it did not change it. Now add an action: "switch the light off". It touches one fact and leaves all the others alone, so it needs a sentence for each of them. Every fact multiplies the actions, every action multiplies the facts. That is the frame problem, and the two authors who named it did not solve it. Their first proposal, in the same section, is to declare a "frame" of things that are assumed unchanged unless said otherwise, which is what our planner does. It works for the monkey. The question is whether it works for the world.
+One new fact, one new column, grey from top to bottom. Every action needs a new sentence saying it did not change it. Now add an action: "switch the light off". It touches one fact and leaves all the others alone, so it needs a sentence for each of them. Every fact multiplies the actions, every action multiplies the facts. That is the frame problem, and the two authors who named it did not solve it. Their first proposal, in the same section, is to declare a "frame" of things that are assumed unchanged unless said otherwise, which is what our planner does. It works for the monkey. The question is whether it works for the world.
 """),
 md("""
 ## 4. And then the exceptions

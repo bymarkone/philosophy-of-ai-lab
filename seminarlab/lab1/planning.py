@@ -122,3 +122,29 @@ def frame_axioms(actions, fluents):
             if f not in a.adds and f not in a.removes:
                 out.append(f"after '{a.name}', '{f}' is as it was")
     return out
+
+
+def search_layers(start, goal, actions):
+    """Everything breadth-first search looks at before it finds the goal.
+
+    Returns (layers, edges). `layers[d]` is the list of new situations first
+    reached after d actions. `edges` are (parent, action name, child) for
+    the first time each child was reached, so they form a tree, and the
+    last layer ends at the first situation where the goal holds."""
+    start, goal = frozenset(start), frozenset(goal)
+    layers, edges = [[start]], []
+    seen = {start}
+    while layers[-1]:
+        if any(goal <= s for s in layers[-1]):
+            break
+        nxt = []
+        for situation in layers[-1]:
+            for a in actions:
+                if a.applicable(situation):
+                    child = a.apply(situation)
+                    if child not in seen:
+                        seen.add(child)
+                        nxt.append(child)
+                        edges.append((situation, a.name, child))
+        layers.append(nxt)
+    return layers, edges

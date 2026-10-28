@@ -41,6 +41,7 @@ Why: McCarthy and Hayes's own example, and the frame problem felt before it is n
 - [x] T1.4.1 Monkey and bananas as state search, plan found by breadth-first search.
 - [x] T1.4.2 Frame axioms counted: n actions times m fluents. Exercise: add a fluent.
 - [x] T1.4.3 The qualification list from the telephone example.
+- [x] T1.4.4 Drawings: plan as a strip of rooms, the search layer by layer, the frame grid.
 
 ## E1.5 — Part E: A Turing machine next to an automaton
 Why: Turing's own wheel machine, then the tape, then universality.
