@@ -51,6 +51,7 @@ Why: Turing's own wheel machine, then the tape, then universality.
 - [x] T1.5.1 Turing's three-state wheel as a table, run on inputs.
 - [x] T1.5.2 Turing machine interpreter with tape trace; a^n b^n and binary increment.
 - [x] T1.5.3 The wheel machine as a Turing machine table run by the same interpreter.
+- [x] T1.5.4 The tape drawn: a strip of every step with the head marked, and a step-by-step film of the first run.
 
 ## E1.6 — Index, instructor notes, verification
 - [x] T1.6.1 Index notebook.

@@ -21,7 +21,7 @@ If a pair falls behind, tell them to skip to the next **Try this** box. Nothing 
 
 **B.** The one point: the function has no chess in it. Scroll back to the thirty lines after the chess game and ask where the chess is. That is Searle's "syntax but no semantics" in front of them. The horizon-effect paragraph (depth 4 loses to depth 2) is there to stop "deeper is always better"; it is also a nice example of a guess being a guess.
 
-**E.** Turing's wheel is in the paper they read. Read the passage aloud while the cell runs. The move from wheel to tape is the move from finite memory to unbounded memory. "The table is data" is universality, and it is why one laptop ran all five parts.
+**E.** Turing's wheel is in the paper they read. Read the passage aloud while the cell runs. The move from wheel to tape is the move from finite memory to unbounded memory. The tape is drawn as a strip, one row per step, and the first run also as a film with a step button: project the film and step it by hand while they follow the table. In the wheel strip at the end, the head only ever moves right; point at it. "The table is data" is universality, and it is why one laptop ran all five parts.
 
 **D.** McCarthy and Hayes named the frame problem and proposed the fix our planner uses (assume unchanged unless said). The point for discussion is whether that fix scales from a monkey to a world. Dreyfus says no.
 

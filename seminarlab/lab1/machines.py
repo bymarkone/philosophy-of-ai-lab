@@ -81,14 +81,15 @@ class TuringMachine:
         lo = min(min(tape), head) if tape else head
         hi = max(max(tape), head) if tape else head
         cells = [tape.get(i, BLANK) for i in range(lo, hi + 1)]
-        return Snapshot(state, "".join(cells), head - lo)
+        return Snapshot(state, "".join(cells), head - lo, lo)
 
 
 @dataclass(frozen=True)
 class Snapshot:
     state: str
     tape: str
-    head: int
+    head: int           # index into `tape`
+    offset: int = 0     # tape position of tape[0], so rows of a run can be lined up
 
     def __str__(self):
         marker = " " * self.head + "^"

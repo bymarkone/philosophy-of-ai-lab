@@ -67,7 +67,8 @@ The wheel cannot do it, and no finite automaton can. Here is why in one sentence
 Turing's fix, from 1936, is to give the machine a tape it can write on and move along. The table now says three things: what to write, which way to move, and which state to go to. Here is a table that checks the a's and b's. The trick is to cross off one a, walk right, cross off one b, walk back, and repeat. When no a is left, walk to the end and check that only crossed-off b's remain.
 """),
 code("""
-from seminarlab.lab1.machines import TuringMachine, print_run, BLANK
+from seminarlab.lab1.machines import TuringMachine, BLANK
+from seminarlab.lab1.tapeplots import draw_run, animate_run
 
 same_number = TuringMachine(
     rules={
@@ -88,15 +89,23 @@ same_number = TuringMachine(
     accept={"yes"},
 )
 
-print_run(same_number.run("aabb"))
+steps = same_number.run("aabb")
+draw_run(steps);
 """),
 md("""
-Watch the head move back and forth, crossing off a letter at each end. It never has to remember a number: the number is on the tape. Now a string that should fail:
+One row per step, top to bottom. The yellow cell is where the head is; the word at the left is the state. Watch the head go right to find a b, cross it off, walk back to the last crossed-off a, and start again. It never has to remember a number: the number is on the tape.
+
+Here is the same run as a film. Press the step button to move one step at a time, or play.
+"""),
+code("""
+animate_run(steps)
+"""),
+md("""
+Now a string that should fail:
 """),
 code("""
 steps = same_number.run("aab")
-print_run(steps)
-print()
+draw_run(steps);
 print("accepted" if steps[-1].state == "yes" else "rejected")
 """),
 md("""
@@ -104,7 +113,7 @@ It runs off the end of the tape in the state `find b`, looking for a b that is n
 
 Any state and symbol the table does not mention is a no. That is why `ba` fails at once: `look` has no rule for `b`.
 
-**Try this.** Run it on `aaaabbbb`, then on `ba`, then on `abab`, then on an empty string `""`. For each one, find the step where it decides. Then try to break it: find a string of a's and b's it gets wrong. (We do not think there is one. Prove us wrong.)
+**Try this.** Run it on `aaaabbbb` (the strip shows every second step when a run is long), then on `ba`, then on `abab`, then on an empty string `""`. For each one, find the row where it decides. Then try to break it: find a string of a's and b's it gets wrong. (We do not think there is one. Prove us wrong.)
 """),
 md("""
 ## 4. Same machine, another table
@@ -115,8 +124,7 @@ code("""
 from seminarlab.lab1.machines import ADD_ONE
 
 steps = ADD_ONE.run("1011")
-print_run(steps)
-print()
+draw_run(steps);
 print("1011 + 1 =", steps[-1].tape.strip(BLANK))
 """),
 md("""
@@ -147,13 +155,13 @@ wheel_tm = wheel_as_turing_machine()
 for key, rule in sorted(wheel_tm.rules.items()):
     print(f"{key}  ->  {rule}")
 
-print()
 steps = wheel_tm.run("0001100")              # the lever positions, 0 = free, 1 = down
+draw_run(steps);
 print("lever: 0001100")
 print("lamp:  " + steps[-1].tape.strip(BLANK))
 """),
 md("""
-Same interpreter, same kind of table. The wheel writes the lamp down but never goes back to read it. The a-and-b checker goes back, reads what it wrote, and decides what to do from that. That is the only difference between them. That is the difference between finite memory and unbounded memory, and it is the only difference between a lamp on a wheel and a computer.
+Same interpreter, same kind of table. Look at the strip: the head only ever moves right. The wheel writes the lamp down but never goes back to read it. The a-and-b checker goes back, reads what it wrote, and decides what to do from that. That is the only difference between them. That is the difference between finite memory and unbounded memory, and it is the only difference between a lamp on a wheel and a computer.
 
 ## 6. The table is data
 
