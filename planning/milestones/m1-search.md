@@ -37,6 +37,7 @@ Why: the algorithm is the same; only the size and the heuristic differ. Searle's
 Why: shows why symbol systems found perception hard and sets up the perceptron.
 - [x] T1.3.1 5x7 letters, template matcher, failure on a shifted letter.
 - [x] T1.3.2 Property list ("Character" in Minsky's sense), then a weighted vote.
+- [x] T1.3.3 Ending from Dreyfus, "Perspicuous grouping vs. character lists", verbatim, with the aphasia passage.
 
 ## E1.4 — Part D: Planning and the frame problem
 Why: McCarthy and Hayes's own example, and the frame problem felt before it is named.
@@ -53,5 +54,6 @@ Why: Turing's own wheel machine, then the tape, then universality.
 
 ## E1.6 — Index, instructor notes, verification
 - [x] T1.6.1 Index notebook.
+- [x] T1.6.4 Short history of AI in the index: four-lane timeline rendered at build time, served from GitHub.
 - [x] T1.6.2 INSTRUCTOR.md with timing and pitfalls.
 - [x] T1.6.3 All notebooks execute; pytest green.

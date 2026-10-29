@@ -25,7 +25,7 @@ If a pair falls behind, tell them to skip to the next **Try this** box. Nothing 
 
 **D.** McCarthy and Hayes named the frame problem and proposed the fix our planner uses (assume unchanged unless said). The point for discussion is whether that fix scales from a monkey to a world. Dreyfus says no.
 
-**C.** Three methods, three failures. The lesson is where the human work moved: writing the answer, then writing the questions, then writing only the questions. Session 3 removes the questions too.
+**C.** Three methods, three failures. The lesson is where the human work moved: writing the answer, then writing the questions, then writing only the questions. Session 3 removes the questions too. The ending puts Dreyfus's "Perspicuous grouping vs. character lists" next to the three methods. Read the aphasia passage aloud (the patient who counts the sides of a triangle "like a digital computer"): our property method is that patient. Then ask who counted the posts of the narrow A.
 
 ## Where students get stuck
 
