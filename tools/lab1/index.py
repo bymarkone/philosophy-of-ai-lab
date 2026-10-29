@@ -1,4 +1,4 @@
-from tools.nb import colab, md
+from tools.nb import colab, md, raw
 
 TITLE = "Lab 1 — Search, symbols, machines"
 
@@ -30,6 +30,20 @@ Click a part to open it in Colab. Parts A, B and E are the core. D and C are for
 - Run cells from top to bottom. Click a cell and press **Shift+Enter**.
 - Boxes marked **Try this** ask you to change something and run again. That is the point of the lab. Nothing you do can break anything. If you get lost, reload the page and start again.
 - You do not have to understand every line. The prose tells you what matters. Read the code when you want to see that there is no trick.
+
+## Where today sits
+
+![A short history of AI]({raw("labs/lab1/img/timeline.png")})
+
+Four lanes, read left to right. Grey bands are the two "AI winters", when the money and the belief ran out.
+
+- **Foundations.** Turing's machine with a tape, 1936 (Part E), and his 1950 question. Everything below is downstream of these two.
+- **Symbolic AI came first.** The name is from 1956. Search, planning, expert systems: intelligence written down by hand as rules. All four of today's papers sit in this lane, between 1950 and 1980, and for thirty years it was most of the field. This lab is this lane.
+- **Neural models are just as old, and were stopped.** McCulloch and Pitts in 1943, the perceptron in 1958. Then Minsky and Papert's book in 1969, and the lane goes quiet for seventeen years. Session 3.
+- **Statistics came in from the side.** Shannon in 1948; then in the 1990s learning from data replaced writing rules. Session 4.
+- **After 2012 the neural lane is nearly the whole field.** Transformers, 2017, are Session 5. Session 6 asks what to do about it.
+
+Popular timelines put "machine learning" and "deep learning" after "AI", as if they were later inventions. They were not. The lanes run side by side from the 1940s. What changed is which lane had the machines, the data and the money.
 
 ## The thread
 

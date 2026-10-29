@@ -9,6 +9,12 @@ from nbformat.v4 import new_code_cell, new_markdown_cell, new_notebook
 
 REPO = "https://github.com/bymarkone/philosophy-of-ai-lab"
 COLAB = "https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main"
+RAW = "https://raw.githubusercontent.com/bymarkone/philosophy-of-ai-lab/main"
+
+
+def raw(path: str) -> str:
+    """URL of a file in the repo as served by GitHub, for images in markdown cells."""
+    return f"{RAW}/{path}"
 
 
 def colab(path: str) -> str:

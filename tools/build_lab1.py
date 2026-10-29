@@ -3,6 +3,7 @@
 from pathlib import Path
 
 from tools.lab1 import index, part_a, part_b, part_c, part_d, part_e
+from seminarlab.lab1.timeline import draw_timeline
 from tools.nb import write
 
 OUT = Path(__file__).resolve().parents[1] / "labs" / "lab1"
@@ -20,3 +21,6 @@ if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     for name, build in NOTEBOOKS.items():
         write(build(), OUT / name)
+    (OUT / "img").mkdir(exist_ok=True)
+    draw_timeline(str(OUT / "img" / "timeline.png"))
+    print("wrote", OUT / "img" / "timeline.png")
