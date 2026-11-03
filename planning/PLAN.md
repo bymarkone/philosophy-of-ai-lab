@@ -9,7 +9,7 @@ Source programme: `planning/archive/programme.md`.
 | ID | Title | Session | Status | Detail |
 |---|---|---|---|---|
 | M1 | Lab 1 — Search, symbols, machines | 2 · 29.10 / 05.11.2026 | COMPLETE | [m1-search.md](milestones/m1-search.md) |
-| M2 | Lab 2 — Perceptron, XOR, multilayer network | 3 · 10.12 / 12.12.2026 | PENDING | [m2-neural.md](milestones/m2-neural.md) |
+| M2 | Lab 2 — Neurons, the perceptron, and what it learned | 3 · 10.12 / 12.12.2026 | COMPLETE | [m2-neural.md](milestones/m2-neural.md) |
 | M3 | Lab 3 — Statistical learners, two cultures | 4 · 17.12 / 19.12.2026 | PENDING | [m3-statistical.md](milestones/m3-statistical.md) |
 | M4 | Lab 4 — A small transformer, attention left blank | 5 · 07.01 / 14.01.2027 | PENDING | [m4-transformer.md](milestones/m4-transformer.md) |
 | M5 | Lab 5 — Ethics and politics (content open) | 6 · 21.01 / 28.01.2027 | PENDING | [m5-ethics.md](milestones/m5-ethics.md) |
@@ -25,7 +25,13 @@ Source programme: `planning/archive/programme.md`.
 | E1.4 | Part D — Planning and the frame problem | M1 | DONE |
 | E1.5 | Part E — A Turing machine next to an automaton | M1 | DONE |
 | E1.6 | Index notebook, instructor notes, verification | M1 | DONE |
-| E2.x | Lab 2 epics | M2 | PENDING |
+| E2.0 | Library and delivery | M2 | DONE |
+| E2.1 | Part A — Neurons as logic | M2 | DONE |
+| E2.2 | Part B — The perceptron | M2 | DONE |
+| E2.3 | Part C — Breaking it | M2 | DONE |
+| E2.4 | Part D — A hidden layer | M2 | DONE |
+| E2.5 | Part E — What did it learn? | M2 | DONE |
+| E2.6 | Index, instructor notes, verification | M2 | DONE |
 | E3.x | Lab 3 epics | M3 | PENDING |
 | E4.x | Lab 4 epics | M4 | PENDING |
 | E5.x | Lab 5 epics | M5 | PENDING |

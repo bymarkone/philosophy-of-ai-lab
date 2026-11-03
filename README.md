@@ -15,7 +15,18 @@ Each lab is a few short notebooks. Open them in Google Colab, press run, read, c
 | D | Planning and the frame problem | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab1/04-planning-and-the-frame-problem.ipynb) |
 | E | A Turing machine next to an automaton | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab1/05-turing-machine-and-automaton.ipynb) |
 
-Labs 2 to 5 follow, one per session.
+## Lab 2 — Neurons, the perceptron, and what it learned (Session 3)
+
+| | Notebook | Open |
+|---|---|---|
+| 0 | Index: what this lab is | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab2/00-index.ipynb) |
+| A | Neurons as logic | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab2/01-neurons-as-logic.ipynb) |
+| B | The perceptron | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab2/02-the-perceptron.ipynb) |
+| C | Breaking it | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab2/03-breaking-the-perceptron.ipynb) |
+| D | A hidden layer | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab2/04-a-hidden-layer.ipynb) |
+| E | What did it learn? | [Colab](https://colab.research.google.com/github/bymarkone/philosophy-of-ai-lab/blob/main/labs/lab2/05-what-did-it-learn.ipynb) |
+
+Labs 3 to 5 follow, one per session.
 
 ## Running locally
 

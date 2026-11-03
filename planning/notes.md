@@ -14,6 +14,13 @@
 - Transformer corpus (lab 4): maybe a small Wittgenstein-style language game. Decide later.
 - Dataset for labs 3 and 5: decide when we get there.
 
+## Decisions taken with the instructor (03.11.2026), Lab 2
+
+- Five parts: A McCulloch-Pitts, B perceptron with every parameter changeable, C Minsky and Papert, D hidden layer and backprop, E "what did it learn?" (the planted dot and the Fodor-Pylyshyn swap test).
+- Backprop stays on XOR, the letters and the 1986 mirror example, numpy only. The deep network on a shared dataset belongs to Lab 3 (Session 4).
+- No ipywidgets sliders: "change these numbers and run" plus films with a step button, as in Lab 1.
+- Lab 1 Part E was reworked on 01.11.2026: addition (tally marks, then decimal by counting on fingers) replaced the a^n b^n checker and the binary increment, which students found hard to follow.
+
 ## Assumptions
 
 - Colab runs Python 3.12 with numpy and matplotlib preinstalled; python-chess is pip-installed by the first cell.
