@@ -9,7 +9,7 @@ Session 2, 15:30 to 17:00. Students in pairs on their own laptops, you project t
 | 15:30 | Index, 5 min | Open `00-index`. Everyone runs the setup cell in `01` while you talk. The pip install takes 10 to 30 seconds on Colab. |
 | 15:35 | A — How big is the game?, 20 min | Draw the tree, count, chart. Stop at Minsky's sentence. Do not let anyone wait for chess layer 5; say "try it over coffee". |
 | 15:55 | B — One search, three games, 25 min | Read the thirty lines aloud once. Let them play tic-tac-toe against it. The checkers film and the opinion line under it make the point without words: one number is all it sees. Chess timing table and the grey-against-blue pruning chart are the showpiece. Finish on the Searle quote. |
-| 16:20 | E — Turing machine, 20 min | Turing's wheel first, typed in from the paper. Then `aabb`. Then "the table is data". |
+| 16:20 | E — Turing machine, 20 min | Turing's wheel first, typed in from the paper. Then 3 + 2 in tally marks, then 98 + 5 on digits. Then "the table is data". |
 | 16:40 | D — Planning, if time, 15 min | Monkey plan, then the frame-axiom count, then one exception. |
 | | C — Letters | Only if the group is fast, or as homework. It stands on its own. |
 
@@ -21,7 +21,7 @@ If a pair falls behind, tell them to skip to the next **Try this** box. Nothing 
 
 **B.** The one point: the function has no chess in it. Scroll back to the thirty lines after the chess game and ask where the chess is. That is Searle's "syntax but no semantics" in front of them. The horizon-effect paragraph (depth 4 loses to depth 2) is there to stop "deeper is always better"; it is also a nice example of a guess being a guess.
 
-**E.** Turing's wheel is in the paper they read. Read the passage aloud while the cell runs. The move from wheel to tape is the move from finite memory to unbounded memory. The tape is drawn as a strip, one row per step, and the first run also as a film with a step button: project the film and step it by hand while they follow the table. In the wheel strip at the end, the head only ever moves right; point at it. "The table is data" is universality, and it is why one laptop ran all five parts.
+**E.** Turing's wheel is in the paper they read. Read the passage aloud while the cell runs. Open section 2 by asking the room to add 3 and 2 with the wheel; let them find that it has nowhere to put anything. The move from wheel to tape is the move from finite memory to unbounded memory. Both adders are drawn as strips, one row per step, and 3 + 2 also as a film with a step button: project the film and step it by hand while they follow the table. The tally adder is four rules; make them read all four. The digit adder is 78 rules; do not read them, read the eight states in words, then watch 98 + 5 carry at step 14. In the wheel strip at the end, the head only ever moves right; point at it. "The table is data" is universality, and it is why one laptop ran all five parts.
 
 **D.** McCarthy and Hayes named the frame problem and proposed the fix our planner uses (assume unchanged unless said). The point for discussion is whether that fix scales from a monkey to a world. Dreyfus says no.
 
@@ -29,6 +29,7 @@ If a pair falls behind, tell them to skip to the next **Try this** box. Nothing 
 
 ## Where students get stuck
 
+- **Colab shows an old version of a notebook after a push.** Colab caches notebooks it fetches from GitHub, sometimes for an hour or more. Open the link once with `?flush_cache=true` appended, for example `...05-turing-machine-and-automaton.ipynb?flush_cache=true`; after that the plain link is fresh too. Do this for each notebook you changed, before the session.
 - **"This notebook was not authored by Google."** Every student sees this on the first Run all. Click Run anyway. Say it before they start.
 - **Setup cell fails.** Usually Colab lost the kernel. Runtime → Restart session, run again. If GitHub is down, the whole lab is down; there is no offline fallback on Colab.
 - **`ModuleNotFoundError` for something inside `seminarlab`** after you have updated the repo. The runtime kept an older copy. The setup cell now reinstalls on every run on Colab; if it still happens, Runtime → Disconnect and delete runtime, then Run all.
@@ -36,7 +37,8 @@ If a pair falls behind, tell them to skip to the next **Try this** box. Nothing 
 - **Chess at depth 6 or 7 seems frozen.** It is not. Runtime → Interrupt execution stops it. Colab is 2 to 3 times slower than a laptop.
 - **Tic-tac-toe "game not over yet".** One of their moves was in a cell already taken, so the loop stopped. Read the board, pick a free cell.
 - **Checkers draws at 150 moves.** There is no draw rule; two kings can chase each other forever. The cap is deliberate.
-- **Turing machine "halt" when they expected "yes".** The table had no rule for that state and symbol. That is a rejection, not a crash.
+- **Turing machine halts early, answer wrong.** The table had no rule for that state and symbol, so it stopped. Usually a typo in a rule they edited; the `?` in the take-one-away exercise does this on purpose.
+- **The 98 + 5 strip skips steps.** It shows every second step so it fits on a screen. `draw_run(steps, every=1)` shows all of them, in a long picture.
 
 ## Numbers you may be asked for
 

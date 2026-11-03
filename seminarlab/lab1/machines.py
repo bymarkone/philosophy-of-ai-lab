@@ -96,50 +96,67 @@ class Snapshot:
         return f"{self.tape}\n{marker} {self.state}"
 
 
-def print_run(steps, limit=40):
-    for n, s in enumerate(steps[:limit]):
-        print(f"step {n:3d}  state {s.state:<8} tape {s.tape}")
-        print(f"                          {' ' * s.head}^")
-    if len(steps) > limit:
-        print(f"... {len(steps) - limit} more steps")
-
-
-# Checks that a string is some a's followed by the same number of b's.
-# Cross off one a, walk right, cross off one b, walk back, repeat. When no
-# a is left, walk to the end and make sure only crossed-off b's remain.
-SAME_NUMBER_OF_A_AND_B = TuringMachine(
+# Adds two numbers written in tally marks: "|||+||" becomes "|||||".
+# Walk right, turn the plus into a mark, and at the end rub out one mark.
+ADD_TALLY = TuringMachine(
     rules={
-        ("look", "a"): ("X", "R", "find b"),
-        ("look", "Y"): ("Y", "R", "check end"),
-        ("look", BLANK): (BLANK, "R", "yes"),
-        ("find b", "a"): ("a", "R", "find b"),
-        ("find b", "Y"): ("Y", "R", "find b"),
-        ("find b", "b"): ("Y", "L", "go back"),
-        ("go back", "a"): ("a", "L", "go back"),
-        ("go back", "Y"): ("Y", "L", "go back"),
-        ("go back", "X"): ("X", "R", "look"),
-        ("check end", "Y"): ("Y", "R", "check end"),
-        ("check end", BLANK): (BLANK, "R", "yes"),
+        ("walk", "|"): ("|", "R", "walk"),
+        ("walk", "+"): ("|", "R", "walk"),
+        ("walk", BLANK): (BLANK, "L", "rub out one"),
+        ("rub out one", "|"): (BLANK, "L", HALT),
     },
-    start="look",
-    accept={"yes"},
+    start="walk",
 )
 
-# Adds one to a binary number written on the tape, head on its first digit.
-ADD_ONE = TuringMachine(
-    rules={
-        ("go right", "0"): ("0", "R", "go right"),
-        ("go right", "1"): ("1", "R", "go right"),
-        ("go right", BLANK): (BLANK, "L", "carry"),
-        ("carry", "1"): ("0", "L", "carry"),
-        ("carry", "0"): ("1", "L", "done"),
-        ("carry", BLANK): ("1", "L", "done"),
-        ("done", "0"): ("0", "L", "done"),
-        ("done", "1"): ("1", "L", "done"),
-        ("done", BLANK): (BLANK, "R", HALT),
-    },
-    start="go right",
-)
+DIGITS = "0123456789"
+
+
+def add_decimal():
+    """Adds two decimal numbers written as "98+5", head on the first digit.
+
+    It counts on its fingers: take one from the right number, give it to the
+    left number, repeat until the right number is 0, then rub out the plus
+    and the 0. The table is long only because there are ten digits; every
+    state has one rule per digit and the rules within a state are alike."""
+    rules = {}
+
+    def for_each_digit(state, rule):
+        for d in DIGITS:
+            rules[(state, d)] = rule(d)
+
+    for_each_digit("find plus", lambda d: (d, "R", "find plus"))
+    rules[("find plus", "+")] = ("+", "R", "look")
+
+    rules[("look", "0")] = ("0", "R", "look")                      # skip zeros
+    for d in DIGITS[1:]:
+        rules[("look", d)] = (d, "R", "to the end")                # something left to take
+    rules[("look", BLANK)] = (BLANK, "L", "clean up")              # right number is all zeros: done
+
+    for_each_digit("to the end", lambda d: (d, "R", "to the end"))
+    rules[("to the end", BLANK)] = (BLANK, "L", "take one")
+
+    rules[("take one", "0")] = ("9", "L", "take one")              # borrow
+    for d in DIGITS[1:]:
+        rules[("take one", d)] = (str(int(d) - 1), "L", "walk left")
+
+    for_each_digit("walk left", lambda d: (d, "L", "walk left"))
+    rules[("walk left", "+")] = ("+", "L", "add one")
+
+    rules[("add one", "9")] = ("0", "L", "add one")                # carry
+    for d in DIGITS[:9]:
+        rules[("add one", d)] = (str(int(d) + 1), "R", "back to plus")
+    rules[("add one", BLANK)] = ("1", "R", "back to plus")         # the number grew a digit
+
+    for_each_digit("back to plus", lambda d: (d, "R", "back to plus"))
+    rules[("back to plus", "+")] = ("+", "R", "look")
+
+    rules[("clean up", "0")] = (BLANK, "L", "clean up")
+    rules[("clean up", "+")] = (BLANK, "L", HALT)
+
+    return TuringMachine(rules=rules, start="find plus")
+
+
+ADD_DECIMAL = add_decimal()
 
 
 def wheel_as_turing_machine():

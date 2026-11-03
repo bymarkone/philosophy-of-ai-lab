@@ -1,3 +1,5 @@
+import pytest
+
 from seminarlab.lab1 import machines as M
 
 
@@ -9,23 +11,31 @@ def test_wheel_follows_turings_table_and_restarts_each_run():
     assert fa.run(["i0"]) == fa.run(["i0"])
 
 
-def test_same_number_of_a_and_b():
-    m = M.SAME_NUMBER_OF_A_AND_B
-    assert m.accepts("ab")
-    assert m.accepts("aaabbb")
-    assert m.accepts("")
-    assert not m.accepts("aab")
-    assert not m.accepts("ba")
-    assert not m.accepts("abab")
-    assert not m.accepts("abba")
-    assert not m.accepts("aabbab")
+def result(machine, tape_text):
+    return machine.run(tape_text)[-1].tape.strip(M.BLANK)
 
 
-def test_add_one():
-    steps = M.ADD_ONE.run("1011")
-    assert steps[-1].tape.strip("_") == "1100"
-    steps = M.ADD_ONE.run("111")
-    assert steps[-1].tape.strip("_") == "1000"
+@pytest.mark.parametrize("tape, expected", [
+    ("|||+||", "|||||"),
+    ("+||", "||"),
+    ("|||+", "|||"),
+    ("+", ""),
+])
+def test_add_tally(tape, expected):
+    assert result(M.ADD_TALLY, tape) == expected
+
+
+@pytest.mark.parametrize("a, b", [
+    (3, 2), (0, 7), (5, 0), (98, 5), (999, 1), (9, 1), (12, 34), (0, 0),
+])
+def test_add_decimal(a, b):
+    assert result(M.ADD_DECIMAL, f"{a}+{b}") == str(a + b)
+
+
+def test_add_decimal_halts_cleanly():
+    steps = M.ADD_DECIMAL.run("98+5")
+    assert steps[-1].state == M.HALT
+    assert "+" not in steps[-1].tape
 
 
 def test_wheel_as_turing_machine_writes_the_lamp():

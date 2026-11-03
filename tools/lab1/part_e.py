@@ -58,42 +58,39 @@ Everything the machine will ever do is in the table. There is no more to it.
 md("""
 ## 2. What the wheel cannot do
 
-Give the wheel a task. Someone writes a string of a's followed by b's, and the machine has to say whether there are as many b's as a's: `aabb` yes, `aab` no.
+Ask the wheel to add 3 and 2.
 
-The wheel cannot do it, and no finite automaton can. Here is why in one sentence: to check `aaaa...` followed by `bbbb...` the machine has to remember how many a's it saw, and with three states it can remember at most three things. Give it a thousand states and the thousand-and-first a defeats it. The machine has no memory beyond which state it is in.
+It cannot, and not because it is slow. It has nowhere to put anything. It reads a lever and lights a lamp, and the only thing it carries from one click to the next is which of its three positions it is in. To add two numbers you have to hold the first one while you read the second. The wheel can hold exactly three things: q1, q2 or q3. Give it a thousand positions and it can hold a thousand things, and 1001 is beyond it. Everything a finite automaton can ever remember is fixed when its table is drawn.
+
+What it needs is a piece of paper.
 
 ## 3. The machine with a tape
 
-Turing's fix, from 1936, is to give the machine a tape it can write on and move along. The table now says three things: what to write, which way to move, and which state to go to. Here is a table that checks the a's and b's. The trick is to cross off one a, walk right, cross off one b, walk back, and repeat. When no a is left, walk to the end and check that only crossed-off b's remain.
+Turing's fix, from 1936, is to give the machine a tape it can write on and move along. The table now says three things: what to write, which way to move, and which state to go to.
+
+Start with addition the way a shepherd does it, in tally marks. `|||+||` is 3 + 2. The machine walks right, turns the plus into a mark, and when it reaches the end it rubs out one mark. Four rules.
 """),
 code("""
-from seminarlab.lab1.machines import TuringMachine, BLANK
+from seminarlab.lab1.machines import TuringMachine, BLANK, HALT
 from seminarlab.lab1.tapeplots import draw_run, animate_run
 
-same_number = TuringMachine(
+add_tally = TuringMachine(
     rules={
         # (state, symbol under the head): (symbol to write, move, next state)
-        ("look",      "a"):   ("X", "R", "find b"),      # cross off an a, go find a b
-        ("look",      "Y"):   ("Y", "R", "check end"),   # no a left: only crossed-off b's may follow
-        ("look",      BLANK): (BLANK, "R", "yes"),       # empty string: equal numbers
-        ("find b",    "a"):   ("a", "R", "find b"),
-        ("find b",    "Y"):   ("Y", "R", "find b"),
-        ("find b",    "b"):   ("Y", "L", "go back"),     # cross off a b, go back
-        ("go back",   "a"):   ("a", "L", "go back"),
-        ("go back",   "Y"):   ("Y", "L", "go back"),
-        ("go back",   "X"):   ("X", "R", "look"),        # back at the last crossed a: repeat
-        ("check end", "Y"):   ("Y", "R", "check end"),
-        ("check end", BLANK): (BLANK, "R", "yes"),       # reached the end cleanly: yes
+        ("walk",        "|"):   ("|", "R", "walk"),
+        ("walk",        "+"):   ("|", "R", "walk"),          # the plus becomes a mark
+        ("walk",        BLANK): (BLANK, "L", "rub out one"), # end of the tape: step back
+        ("rub out one", "|"):   (BLANK, "L", HALT),          # one mark too many
     },
-    start="look",
-    accept={"yes"},
+    start="walk",
 )
 
-steps = same_number.run("aabb")
+steps = add_tally.run("|||+||")
 draw_run(steps);
+print("3 + 2 =", steps[-1].tape.strip(BLANK))
 """),
 md("""
-One row per step, top to bottom. The yellow cell is where the head is; the word at the left is the state. Watch the head go right to find a b, cross it off, walk back to the last crossed-off a, and start again. It never has to remember a number: the number is on the tape.
+One row per step, top to bottom. The yellow cell is where the head is; the word at the left is the state. Read the first column: the head walks right, writes once, walks to the end, steps back, rubs out once, stops.
 
 Here is the same run as a film. Press the step button to move one step at a time, or play.
 """),
@@ -101,47 +98,69 @@ code("""
 animate_run(steps)
 """),
 md("""
-Now a string that should fail:
+**Try this.** Run it on `||||+|||`, then on `+||`, then on `|||+`, then on `+` alone. Check each answer by counting.
+
+**Then this.** Here is a machine that should take one away: `|||` becomes `||`. One rule has a `?` in it. Fix it.
 """),
 code("""
-steps = same_number.run("aab")
-draw_run(steps);
-print("accepted" if steps[-1].state == "yes" else "rejected")
-"""),
-md("""
-It runs off the end of the tape in the state `find b`, looking for a b that is not there. The table has nothing for that case, so it halts without saying yes. That is a no.
-
-Any state and symbol the table does not mention is a no. That is why `ba` fails at once: `look` has no rule for `b`.
-
-**Try this.** Run it on `aaaabbbb` (the strip shows every second step when a run is long), then on `ba`, then on `abab`, then on an empty string `""`. For each one, find the row where it decides. Then try to break it: find a string of a's and b's it gets wrong. (We do not think there is one. Prove us wrong.)
-"""),
-md("""
-## 4. Same machine, another table
-
-Nothing in the machine knows about a's and b's. Give it a different table and it does arithmetic. This one adds one to a number written in binary.
-"""),
-code("""
-from seminarlab.lab1.machines import ADD_ONE
-
-steps = ADD_ONE.run("1011")
-draw_run(steps);
-print("1011 + 1 =", steps[-1].tape.strip(BLANK))
-"""),
-md("""
-**Try this.** Write a table that flips every digit: 0 becomes 1 and 1 becomes 0, then halts. You need one state and three rules. Fill in the blanks.
-"""),
-code("""
-from seminarlab.lab1.machines import HALT
-
-flip = TuringMachine(
+take_one_away = TuringMachine(
     rules={
-        ("flip", "0"):   ("1", "R", "flip"),
-        ("flip", "1"):   ("?", "R", "flip"),       # fix this
-        ("flip", BLANK): (BLANK, "L", HALT),
+        ("walk",    "|"):   ("|", "R", "walk"),
+        ("walk",    BLANK): (BLANK, "L", "rub out"),
+        ("rub out", "|"):   ("?", "L", HALT),       # fix this
     },
-    start="flip",
+    start="walk",
 )
-print(flip.run("1100")[-1].tape.strip(BLANK), " (should be 0011)")
+print(take_one_away.run("|||")[-1].tape.strip(BLANK), " (should be ||)")
+"""),
+md("""
+## 4. Same machine, another table: 98 + 5
+
+Tally marks are honest, but nobody writes 98 as ninety-eight strokes. Here is addition on ordinary digits, done the way a child does it on their fingers: take one from the right number, give it to the left number, and repeat until the right number is 0. Then rub out the plus and the 0.
+
+Nothing in the machine changes. Only the table does. It is longer, because there are ten digits and every state needs a rule for each, but every state does one small thing:
+
+- **find plus**: walk right to the `+`.
+- **look**: is anything left in the right number? Skip zeros. A nonzero digit means yes.
+- **to the end**: walk to the last digit of the right number.
+- **take one**: lower that digit by one. If it is a 0, make it 9 and borrow from the digit to its left.
+- **walk left**: back past the `+`, to the last digit of the left number.
+- **add one**: raise that digit by one. If it is a 9, make it 0 and carry to the digit to its left. If there is no digit there, write a 1 in the blank.
+- **back to plus**: walk right to the `+`, and look again.
+- **clean up**: the right number is all zeros. Rub it out, rub out the plus, stop.
+
+Here are the rules for one of those states, and the count for the whole table.
+"""),
+code("""
+from seminarlab.lab1.machines import ADD_DECIMAL
+
+for (state, symbol), rule in sorted(ADD_DECIMAL.rules.items()):
+    if state == "take one":
+        print(f"({state!r}, {symbol!r})  ->  {rule}")
+print(len(ADD_DECIMAL.rules), "rules in all")
+"""),
+md("""
+Now 3 + 2 on digits. Watch the right number count down, 2, 1, 0, and the left one count up, 3, 4, 5.
+"""),
+code("""
+steps = ADD_DECIMAL.run("3+2")
+draw_run(steps);
+"""),
+code("""
+animate_run(steps)
+"""),
+md("""
+And 98 + 5. The strip is long, so it shows every second step. Find the rows around step 14, where 99 becomes 100: the 9s turn to 0 and a 1 appears in a cell that was blank. That is the carry, and the tape grew a cell to the left to make room for it.
+"""),
+code("""
+steps = ADD_DECIMAL.run("98+5")
+draw_run(steps);
+print("98 + 5 =", steps[-1].tape.strip(BLANK))
+"""),
+md("""
+Nothing in the machine knows what 98 is. It never holds a number anywhere. The numbers are on the tape, and the machine only ever looks at one cell. That is how eight states add numbers of any length, where a wheel with a thousand positions could not reach 1001.
+
+**Try this.** Run it on `999+1`, then on `0+7`, then on `7+0`. Then `12+34`, which takes a few hundred steps; the strip skips most of them, so find the rows where the right number loses a digit. Then try to break it.
 """),
 md("""
 ## 5. The wheel, again, on the tape
@@ -161,7 +180,7 @@ print("lever: 0001100")
 print("lamp:  " + steps[-1].tape.strip(BLANK))
 """),
 md("""
-Same interpreter, same kind of table. Look at the strip: the head only ever moves right. The wheel writes the lamp down but never goes back to read it. The a-and-b checker goes back, reads what it wrote, and decides what to do from that. That is the only difference between them. That is the difference between finite memory and unbounded memory, and it is the only difference between a lamp on a wheel and a computer.
+Same interpreter, same kind of table. Look at the strip: the head only ever moves right. The wheel writes the lamp down but never goes back to read it. The adding machine walks back and forth between the two numbers, reads what it wrote a moment ago, and decides what to do from that. That is the only difference between them. That is the difference between finite memory and unbounded memory, and it is the only difference between a lamp on a wheel and a computer.
 
 ## 6. The table is data
 
@@ -181,6 +200,6 @@ Turing is careful about one thing. The sentence before the wheel is:
 
 He later argues that the brain, too, can "profitably be thought of" this way, for the purposes of the imitation game. Dreyfus's biological assumption, which you read for Session 3, is the claim that this is a mistake.
 
-So: the wheel is a discrete state machine. The a-and-b checker is one. You, Turing says, can be treated as one. Is the difference between you and the wheel a matter of more states and a longer tape, or is it a difference of kind? And if it is a difference of kind, what would show it?
+So: the wheel is a discrete state machine. The adding machine is one. You, Turing says, can be treated as one. Is the difference between you and the wheel a matter of more states and a longer tape, or is it a difference of kind? And if it is a difference of kind, what would show it?
 """),
 ]

@@ -48,7 +48,7 @@ def draw_run(steps, every=None, max_rows=24, cell_in=0.42):
     for k, (n, snap) in enumerate(rows):
         y = -k * 1.15
         _draw_cells(ax, snap, lo, hi, y, 1.0, fontsize=cell_in * 72 * 0.5)
-        colour = INK if snap.state in FINAL or snap.state == "yes" else HEAD
+        colour = INK if snap.state in FINAL else HEAD
         ax.text(lo - 0.4, y + 0.5, f"{n:>3}  {snap.state}", ha="right", va="center", fontsize=9, color=colour,
                 family="monospace")
     ax.set_xlim(lo - 4.2, hi + 0.1)
